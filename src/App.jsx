@@ -1,9 +1,10 @@
 import React from "react";
 import Home from "./home/Home";
-import { Navigate, Route, Routes } from "react-router-dom";
+import {  Route, Routes } from "react-router-dom";
 import Courses from "./courses/Courses";
 import Signup from "./components/Signup";
 import { Toaster } from "react-hot-toast";
+import PrivateRoute from './PrivateRoute.jsx';
 import { useAuth } from "./context/AuthProvider";
 
 function App() {
@@ -14,11 +15,8 @@ function App() {
       <div className="dark:bg-slate-900 dark:text-white">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/course"
-            element={authUser ? <Courses /> : <Navigate to="/signup" />}
-          />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/course" element={<PrivateRoute authUser={authUser} element={Courses} />} />
+          <Route path="/signup" element={<Signup />} />   <Route path="/signup" element={<Signup />} />
         </Routes>
         <Toaster />
       </div>
